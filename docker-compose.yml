@@ -1,0 +1,16 @@
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      # 変更検知が不安定な環境のために有効化（必要なら）
+      - WATCHPACK_POLLING=true
+    working_dir: /app
+    volumes:
+      - .:/app:cached
+      # ホストの node_modules を無効化し、コンテナ側を優先
+      - /app/node_modules
